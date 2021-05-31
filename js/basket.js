@@ -3,14 +3,14 @@
 const  containerBasket = document.querySelector('#main');
 const  basketDiv = document.querySelector('#basketDiv');
 const  basketEmpty = document.querySelector('#basketEmpty');
-const clone = document.importNode(templatetHead.content, true);
+
 
 let indexBasket = 0;
 if (basket.length > 0){
     basketDiv.removeChild(basketEmpty);
-    basketDiv.appendChild(clone);
     basket.forEach((element, index) =>
         {
+            const clone = document.importNode(templatetHead.content, true);
             const cloneItems = document.importNode(templatetRows.content, true);
             const cloneItemRow = cloneItems.querySelector('.itemRow')
             const cloneTbody = clone.querySelector('.tBody')
@@ -49,7 +49,7 @@ if (basket.length > 0){
                 totalPrice()
             })
             clone.appendChild(cloneItems);
-            
+            basketDiv.appendChild(clone);
             cloneTbody.appendChild(cloneItemRow)
         })
         totalPrice()
