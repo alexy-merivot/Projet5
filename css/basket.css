@@ -1,0 +1,31 @@
+#basketDiv{
+    background-color: #f3e9f1;
+}
+
+.imageBasket{
+    max-width: 80%;
+    max-height: 80;
+}
+
+.imageCol{
+    justify-content: center;
+}
+
+/* .itemRow{
+    display: flex;
+    flex-direction: row;
+} */
+
+/* .table{
+    display: flex;
+    flex-direction: row;
+} */
+
+table,
+td {
+    border: 1px solid #333;
+}
+
+#form{
+    background-color: #f3e9f1;
+}

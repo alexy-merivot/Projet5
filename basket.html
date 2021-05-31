@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/basket.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <title>Bienvenue chez ORINOCO</title>
+    <meta
+      name="description"
+      content="ORINOCO est un site de vente en ligne d'ours en peluche, de meubles en bois et de caméras anciennes"
+    />
+  </head>
+
+
+  <body class="container">
+
+    <header class="topbar">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">ORINOCO</a>
+            <a class="nav-item nav-link active" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link btnBasket" href="basket.html">Panier</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+
+      <!-- Panier -->
+      <div id="basketDiv">
+        <p id="basketEmpty">Votre panier est vide</p>
+      </div>
+
+
+      <!-- Formulaire -->
+      <div id="containerForm"></div>
+
+    </main>
+
+    <footer class="bottom-fixed">
+      <p>
+        Site réalisé dans le cadre du projet 5 du parcours d'<a
+          href="https://openclassrooms.com/"
+          >Openclassrooms</a
+        >
+        par Alexy Merivot
+      </p>
+    </footer>
+
+    <template id="templatetHead">
+      <table class="table">
+        <thead>
+          <tr>
+            <th >Nom</th>
+            <th >Image</th>
+            <th >Prix unitaire</th>
+            <th >Quantité</th>
+          </tr>
+        </thead>
+        <tbody class="tBody">
+          <tr>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+
+    <template id="templatetRows">
+
+      <tr class="itemRow">
+        <td class="imageCol">
+          <img class="imageBasket"></img>
+        </td>
+        <td >
+          <p class="productNameBasket"></p>
+          <p class="productColorBasket"></p>
+        </td>
+        <td >
+          <p class="productPriceBasket"></p>
+        </td>
+        <td >
+          <button class="btnLess btn">-</button>
+          <p class="productQuantityBasket"></p>
+          <button class="btnMore btn" >+</button>
+        </td>
+      </tr>
+    </template>
+
+    <template id="templateTotal">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <p id= "total">Total</p>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </template>
+
+    <template id="templateForm">
+      <form id= "form" method="post" name="form-panier">
+          <legend>Civilité</legend>
+              <label for="formNom">Nom : </label>
+              <input
+                type="text"
+                id="formNom"
+                class="form-control input-control"
+                required
+                name="formNom"
+                pattern=""
+              />
+              <label for="formPrenom" class="right-inline">Prénom :</label>
+              <input
+                type="text"
+                id="formPrenom"
+                class="form-control input-control"
+                required
+                name="formPrenom"
+              />
+          <legend>Coordonnées</legend>
+            <label for="formMail">E-mail :</label>
+            <input
+              type="email"
+              id="formMail"
+              class="form-control input-control"
+              required
+              name="formMail"
+              pattern="[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})"
+            />
+            <label for="formAdresse">Adresse :</label>
+            <input
+              type="text"
+              id="formAdresse"
+              class="form-control input-control"
+              required
+              name="formAdresse"
+            />
+            <label for="formVille">Ville :</label>
+            <input
+              type="text"
+              id="formVille"
+              class="form-control input-control"
+              required
+              name="formVille"
+            />
+        <button
+          type="submit"
+          value="Je valide mon panier et mes informations"
+          class="btn btn--form"
+          id="envoiPost">
+          Je valide mon panier et mes informations
+        </button>
+      </form>
+    </template>
+
+    <script src="js/global.js"></script>
+    <script src="js/basket.js"></script>
+    <script>
+    </script>
+  </body>
+</html>

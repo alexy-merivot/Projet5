@@ -1,0 +1,68 @@
+header{
+    display: flex;
+    flex-direction: row;
+}
+
+h1{
+    text-align: center;
+}
+
+.topbar__logo{
+    max-width: 40%;
+}
+
+nav{
+    padding-top: 65px;
+}
+
+.nav__link{
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: x-large;
+    text-decoration: none;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+  }
+
+html{
+    background-color: #f3e9f1;
+}
+
+.container{
+    background-color: #f3e9f1;
+}
+
+#main{
+    background-color: #f3e9f1;
+}
+
+.topbar{
+    background-color: #f3e9f1;
+}
+
+.navbar{
+    background-color: #f3e9f1;
+}
+
+article{
+    border: solid;
+    max-width: 100%;
+    max-height: 10%;
+  }
+
+footer{
+    text-align: center;
+}
+
+h5{
+    font-size: larger;
+    color: red;
+}
+
+.card-body{
+    text-align: center;
+}
+

@@ -1,0 +1,9 @@
+.img{
+    width: 100%;
+}
+
+.cardIndex{
+    display: flex;
+    flex-direction: column;
+}
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/product.css" />
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <title>Votre produit ORINOCO</title>
+    <meta
+      name="description"
+      content="ORINOCO est un site de vente en ligne d'ours en peluche, de meubles en bois et de caméras anciennes"
+    />
+  </head>
+  <body class="container">
+    <header class="topbar">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">ORINOCO</a>
+            <a class="nav-item nav-link active" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link btnBasket" href="basket.html">Panier</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        </div>
+      </nav>
+    </header>
+    <main id="main">
+      <div id="error">
+        <p id="error__msg">
+          Désolé une erreur avec l'API est survenue, ou la page démandée
+          n'existe pas ! Veuillez réesayer
+        </p>
+      </div>
+    </main>
+
+    <template id="product">
+            <article class="">
+              <div class="cardIndex">
+                  <div class= "image">
+                    <img class="img" src="" alt="Ourson">
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title"></h5>
+                      <p class="card-text"></p>
+                      <p class="card-price"> </p>
+                      <select id="monSelect">
+                      </select>
+                      <button class="add-to-basket btn btn-primary">Ajouter au panier</button>
+                  </div>
+              </div>
+            </article>
+          </template>
+    <footer>
+      <p>
+        Site réalisé dans le cadre du projet 5 du parcours d'<a
+          href="https://openclassrooms.com/"
+          >Openclassrooms</a
+        >
+        par Alexy Merivot
+      </p>
+    </footer>
+    <script src="js/global.js"></script>
+    <script src="js/product.js"></script>
+    <!-- <script src="js/aurel.js"></script> -->
+  </body>
+</html>
