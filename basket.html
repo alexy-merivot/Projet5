@@ -108,48 +108,52 @@
 
     <template id="templateForm">
       <form id= "form" method="post" name="form-panier">
+        <div class = "error"></div>
           <legend>Civilité</legend>
-              <label for="formNom">Nom : </label>
+              <label for="lastName">Nom : </label>
               <input
                 type="text"
-                id="formNom"
+                id="lastName"
                 class="form-control input-control"
                 required
-                name="formNom"
+                name="lastName"
+                pattern="[A-Za-z]{2,15}"
               />
-              <label for="formPrenom" class="right-inline">Prénom :</label>
+              <label for="firstName" class="right-inline">Prénom :</label>
               <input
                 type="text"
-                id="formPrenom"
+                id="firstName"
                 class="form-control input-control"
                 required
-                name="formPrenom"
+                name="firstName"
+                pattern="[A-Za-z]{2,15}"
               />
           <legend>Coordonnées</legend>
-            <label for="formMail">E-mail :</label>
+            <label for="email">E-mail :</label>
             <input
               type="email"
-              id="formMail"
+              id="email"
               class="form-control input-control"
               required
-              name="formMail"
+              name="email"
               pattern="[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})"
             />
-            <label for="formAdresse">Adresse :</label>
+            <label for="adresse">Adresse :</label>
             <input
               type="text"
-              id="formAdresse"
+              id="address"
               class="form-control input-control"
               required
-              name="formAdresse"
+              name="address"
             />
-            <label for="formVille">Ville :</label>
+            <label for="city">Ville :</label>
             <input
               type="text"
-              id="formVille"
+              id="city"
               class="form-control input-control"
               required
-              name="formVille"
+              name="city"
+              pattern="[A-Za-z]{2,15}"
             />
         <button
           type="submit"

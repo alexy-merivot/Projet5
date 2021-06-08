@@ -3,17 +3,15 @@
 const  containerBasket = document.querySelector('#main');
 const  basketDiv = document.querySelector('#basketDiv');
 const  basketEmpty = document.querySelector('#basketEmpty');
-
-
+const cloneHead = document.importNode(templatetHead.content, true);
+const cloneTbody = cloneHead.querySelector('.tBody')
 let indexBasket = 0;
 if (basket.length > 0){
     basketDiv.removeChild(basketEmpty);
     basket.forEach((element, index) =>
         {
-            const clone = document.importNode(templatetHead.content, true);
             const cloneItems = document.importNode(templatetRows.content, true);
             const cloneItemRow = cloneItems.querySelector('.itemRow')
-            const cloneTbody = clone.querySelector('.tBody')
             console.log(cloneItems)
             console.log(cloneItemRow)
             console.log(cloneTbody)
@@ -48,17 +46,14 @@ if (basket.length > 0){
                 }
                 totalPrice()
             })
-            clone.appendChild(cloneItems);
-            basketDiv.appendChild(clone);
+            cloneHead.appendChild(cloneItems);
+            basketDiv.appendChild(cloneHead);
             cloneTbody.appendChild(cloneItemRow)
         })
         totalPrice()
-
 }
 
-
 // Case du prix total sous le panier
-//const cloneTotalPrice = document.importNode(templateTotal.content, true)
 let caseTotal = document.querySelector('#total')
 
 function totalPrice() {
@@ -73,56 +68,107 @@ basket.forEach(product => {
     price += product.item.price * product.quantity;
 })
 caseTotal.textContent = `${price / 100} €`
-//     let caseTotal = document.querySelector('#total')
-//     console.log(document.querySelector('#total'))
-//     if(caseTotal){
-//         console.log("toto")
-//         caseTotal.parentNode.removeChild(document.querySelector('#total'))
-//     }
-//     let prixTotal = 0;
-//     const cloneTotalPrice = document.importNode(templateTotal.content, true)
-//     basket.forEach(product => {
-//         prixTotal += product.item.price * product.quantity;
-//         let prixEuro = prixTotal/100 + "€"
-//         console.log(cloneTotalPrice.querySelector('#total').textContent)
-//         cloneTotalPrice.querySelector('#total').textContent = prixEuro;
-//     });
-//     basketDiv.appendChild(cloneTotalPrice)
-//     console.log(prixTotal);
-}
-
 
 const containerForm = document.querySelector('#containerForm')
 const cloneForm = document.importNode(templateForm.content, true);
 
+
 if (basket.length > 0)
 {
     containerForm.appendChild(cloneForm);
-    containerForm.querySelector('.btn--form').addEventListener('click', (e) => {
+    // containerForm.querySelector('.btn--form').addEventListener('click', (e) => {
+    //     let products = []
+    //     basket.forEach((element, index) => {
+    //         products.push(basket[index].item._id)
+    //     })
+    //     console.log(products)
+
+    // })
+    const form = document.querySelector('#form')
+    const errorList = form.querySelector('#error')
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
         let products = []
         basket.forEach((element, index) => {
             products.push(basket[index].item._id)
-        })
-        console.log(products)
-
-    })
-    const form = document.querySelector('#form')
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
+            console.log(products)
         const elements = form.elements;
         console.log(elements)
         let objContact = {};
+        let hasError = false;
         for( let i = 0; i < elements.length-1; i++) {
         const item = elements.item(i);
         console.log(elements.item(i).value)
-        objContact += [item.name = elements.item(i).value];
-        console.log(objContact)
+        if(elements.item(i).checkValidity()) {
+            console.log("tata")
+            objContact[item.name] = elements.item(i).value;
+            console.log(objContact)
+        } else {
+            console.log("toto")
+            const liError = document.createElement("li")
+            liError.innerText = `${item.name} : ${item.validationMessage}`;
+            hasError = true
+            errorList.appendChild(liError);
+        }
         }
         console.log(objContact)
         console.log(elements)
     })
-}
-// console.log(form.querySelector('.btn--form'))
+    })}
+
+function send(e) {
+    e.preventDefault();
+    fetch("http://localhost:3000/api/", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({objCotact},[products])
+    });
+}}
 
 
-// form.querySelector('.btn--form').addEventListener('click', (e) => {
+
+
+
+// containerForm.querySelector('.btn--form').addEventListener('click', (e) => {
+//     e.preventDefault();
+//     const elements = form.elements;
+//     const contactObject = {};
+//     const productsObject = basket.map(item => {
+//         return item.product._id;
+//     })
+//     let isFormDataValid = true
+//     const errorList = document.createElement('ul');
+//     console.warn(elements);
+//     for (let i = 0; i < elements.length - 1; i++) {
+//         const item = elements.item(i);
+//         if (item.checkValidity()) {
+//             contactObject[item.name] = item.value;
+//         } else {
+//             const liError = document.createElement('li');
+//             liError.innerText = `${item.name} : ${item.validationMessage}`;
+//             isFormDataValid = false;
+//             errorList.appendChild(liError);
+//         }
+//     }
+//     if (isFormDataValid) {
+//         const objectToSend = {
+//             contact: contactObject,
+//             products: productsObject
+//         }
+//         fetch('http://localhost:3000/api/cameras/order', {
+//             method: 'POST',
+//             body: JSON.stringify(objectToSend),
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//             .then(resp => resp.json())
+//             .then(data => console.warn(data))
+//             .catch(err => alert(err));
+//     } else {
+//         document.querySelector('#error').appendChild(errorList);
+//     }
+// })}
