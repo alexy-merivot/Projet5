@@ -29,6 +29,7 @@ if (basket.length > 0){
                 labelCount.textContent = basket[index].quantity;
                 localStorage.setItem('basket', JSON.stringify(basket))
                 totalPrice()
+                quantityBasketTotal()
             })
     // Boutons moins
             cloneItems.querySelector('.btnLess').addEventListener('click', (e) => {
@@ -47,6 +48,7 @@ if (basket.length > 0){
                     localStorage.setItem('basket', JSON.stringify(basket))
                 }
                 totalPrice()
+                quantityBasketTotal()
             })
             cloneHead.appendChild(cloneItems);
             basketDiv.appendChild(cloneHead);
@@ -80,7 +82,8 @@ if (basket.length > 0)
 {
     containerForm.appendChild(cloneForm);
     const form = document.querySelector('#form')
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', (e) =>
+    {
         e.preventDefault();
         let objProducts = []
         basket.forEach((element, index) => {
@@ -94,7 +97,8 @@ if (basket.length > 0)
             objContact[item.name] = elements.item(i).value;
         }
         send(objContact, objProducts)
-    })}
+    })
+}
 
     // fonction reqête post et envoi des données a l'api puis récupération de l'orderID
 function send(contacts, prod) {
@@ -120,7 +124,7 @@ function send(contacts, prod) {
         window.location.replace('index.html')
     })
     .catch(err => alert(err));
-
+}
 
 
 

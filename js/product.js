@@ -54,10 +54,10 @@ fetch(APIURL)
                     //   sinon : création d'un nouvel objet contenant le produit et la quantité puis push dans le panier
                 } else {
                         basket.push({item: product, color: colorSelected, quantity: 1});
-                        console.log("plop2");
                 }
                 localStorage.setItem('basket', JSON.stringify(basket));
             window.alert("Vous avez bien ajouté le produit au panier");
+            quantityBasketTotal()
 
         })};
 
