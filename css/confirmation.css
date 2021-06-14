@@ -1,0 +1,11 @@
+#containerMessage{
+    margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
+  transform: translateY(-50%);
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%
+}
+
+body{
+    background-color: #f3e9f1;
+}

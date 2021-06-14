@@ -6,16 +6,14 @@ const  basketEmpty = document.querySelector('#basketEmpty');
 const cloneHead = document.importNode(templatetHead.content, true);
 const cloneTbody = cloneHead.querySelector('.tBody')
 let indexBasket = 0;
+
+    // Construction du panier en js en important les templates HTML
 if (basket.length > 0){
     basketDiv.removeChild(basketEmpty);
     basket.forEach((element, index) =>
         {
             const cloneItems = document.importNode(templatetRows.content, true);
             const cloneItemRow = cloneItems.querySelector('.itemRow')
-            console.log(cloneItems)
-            console.log(cloneItemRow)
-            console.log(cloneTbody)
-            // cloneTbody.appendChild(cloneItemRow)
             const priceTranslate = element.item.price / 100;
             cloneItems.querySelector('.imageBasket').src = element.item.imageUrl;
             cloneItems.querySelector('.productColorBasket').textContent = element.color;
@@ -24,7 +22,7 @@ if (basket.length > 0){
             cloneItems.querySelector('.productQuantityBasket').textContent = element.quantity;
             cloneItems.querySelector('.productQuantityBasket').id = index;
             cloneItems.querySelector('.itemRow').id = "id" + index;
-// Boutons plus
+    // Boutons plus
             cloneItems.querySelector('.btnMore').addEventListener('click', (e) => {
                 basket[index].quantity++;
                 const labelCount = document.getElementById(index);
@@ -32,7 +30,7 @@ if (basket.length > 0){
                 localStorage.setItem('basket', JSON.stringify(basket))
                 totalPrice()
             })
-// Boutons moins
+    // Boutons moins
             cloneItems.querySelector('.btnLess').addEventListener('click', (e) => {
                 basket[index].quantity--;
                 const labelCount = document.getElementById(index);
@@ -40,7 +38,11 @@ if (basket.length > 0){
                 localStorage.setItem('basket', JSON.stringify(basket))
                 if (basket[index].quantity === 0){
                     const itemRow = document.getElementById("id" + index);
-                    basketDiv.removeChild(itemRow)
+                    if (itemRow.parentNode) {
+                        // supprime un noeud  de l'arbre,
+                        // sauf s'il a déjà été supprimé
+                        itemRow.parentNode.removeChild(itemRow);
+                        }
                     basket.splice(index)
                     localStorage.setItem('basket', JSON.stringify(basket))
                 }
@@ -53,14 +55,14 @@ if (basket.length > 0){
         totalPrice()
 }
 
-// Case du prix total sous le panier
+    // Case du prix total sous le panier
 let caseTotal = document.querySelector('#total')
 
 function totalPrice() {
     let caseTotal = document.querySelector('#total');
+    const cloneTotalPrice = document.importNode(templateTotal.content, true);
 if (!caseTotal) {
-    const cloneToTotalPrice = document.importNode(templateTotal.content, true);
-    basketDiv.appendChild(cloneToTotalPrice);
+    basketDiv.appendChild(cloneTotalPrice);
     caseTotal = document.querySelector('#total');
 }
 let price = 0;
@@ -68,66 +70,56 @@ basket.forEach(product => {
     price += product.item.price * product.quantity;
 })
 caseTotal.textContent = `${price / 100} €`
+}
 
 const containerForm = document.querySelector('#containerForm')
 const cloneForm = document.importNode(templateForm.content, true);
-
-
+    // Importation du formulaire si le panier n'est pas vide
+    // et récupération des input du formulaire
 if (basket.length > 0)
 {
     containerForm.appendChild(cloneForm);
-    // containerForm.querySelector('.btn--form').addEventListener('click', (e) => {
-    //     let products = []
-    //     basket.forEach((element, index) => {
-    //         products.push(basket[index].item._id)
-    //     })
-    //     console.log(products)
-
-    // })
     const form = document.querySelector('#form')
-    const errorList = form.querySelector('#error')
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        let products = []
+        let objProducts = []
         basket.forEach((element, index) => {
-            products.push(basket[index].item._id)
-            console.log(products)
-        const elements = form.elements;
-        console.log(elements)
+            objProducts.push(basket[index].item._id)
+        })
+
         let objContact = {};
-        let hasError = false;
+        const elements = form.elements;
         for( let i = 0; i < elements.length-1; i++) {
-        const item = elements.item(i);
-        console.log(elements.item(i).value)
-        if(elements.item(i).checkValidity()) {
-            console.log("tata")
+            const item = elements.item(i);
             objContact[item.name] = elements.item(i).value;
-            console.log(objContact)
-        } else {
-            console.log("toto")
-            const liError = document.createElement("li")
-            liError.innerText = `${item.name} : ${item.validationMessage}`;
-            hasError = true
-            errorList.appendChild(liError);
         }
-        }
-        console.log(objContact)
-        console.log(elements)
-    })
+        send(objContact, objProducts)
     })}
 
-function send(e) {
-    e.preventDefault();
-    fetch("http://localhost:3000/api/", {
+    // fonction reqête post et envoi des données a l'api puis récupération de l'orderID
+function send(contacts, prod) {
+    let objToSend = {
+        contact: contacts,
+        products: prod
+    }
+    localStorage.clear()
+    console.log(JSON.stringify(objToSend))
+    fetch("http://localhost:3000/api/teddies/order", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({objCotact},[products])
-    });
-}}
-
+      body: JSON.stringify(objToSend)
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data.orderId)
+        localStorage.setItem("orderIdConfirmation",data.orderId)
+        window.open('confirmation.html')
+        window.location.replace('index.html')
+    })
+    .catch(err => alert(err));
 
 
 

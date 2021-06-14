@@ -52,6 +52,7 @@
       </p>
     </footer>
 
+<!-- Template du haut du tableau panier -->
     <template id="templatetHead">
       <table class="table">
         <thead>
@@ -73,8 +74,8 @@
       </table>
     </template>
 
+    <!-- Template du body du tableau panier -->
     <template id="templatetRows">
-
       <tr class="itemRow">
         <td class="imageCol">
           <img class="imageBasket"></img>
@@ -94,6 +95,7 @@
       </tr>
     </template>
 
+    <!-- Template de la case total du panier -->
     <template id="templateTotal">
       <table class="table">
         <thead>
@@ -106,9 +108,9 @@
       </table>
     </template>
 
+    <!-- Template du formulaire -->
     <template id="templateForm">
       <form id= "form" method="post" name="form-panier">
-        <div class = "error"></div>
           <legend>Civilité</legend>
               <label for="lastName">Nom : </label>
               <input
@@ -117,7 +119,6 @@
                 class="form-control input-control"
                 required
                 name="lastName"
-                pattern="[A-Za-z]{2,15}"
               />
               <label for="firstName" class="right-inline">Prénom :</label>
               <input
@@ -126,7 +127,6 @@
                 class="form-control input-control"
                 required
                 name="firstName"
-                pattern="[A-Za-z]{2,15}"
               />
           <legend>Coordonnées</legend>
             <label for="email">E-mail :</label>
@@ -138,7 +138,7 @@
               name="email"
               pattern="[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})"
             />
-            <label for="adresse">Adresse :</label>
+            <label for="address">Adresse :</label>
             <input
               type="text"
               id="address"
@@ -153,7 +153,6 @@
               class="form-control input-control"
               required
               name="city"
-              pattern="[A-Za-z]{2,15}"
             />
         <button
           type="submit"

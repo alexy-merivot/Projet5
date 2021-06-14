@@ -12,35 +12,6 @@ const containerProducts = document.querySelector('#main');
 fetch(APIURL)
 .then(response => response.json())
 .then(product =>{
-    // let results = '';
-    //   const priceTranslate = product.price / 100;
-
-
-                                // création du html grace aux données de la requète
-        // results +=
-        // `
-        //     <article class="">
-        //         <div class="cardIndex">
-        //             <div class= "image">
-        //               <img class="card-img-top" src="${product.imageUrl}" alt="${product.name}">
-        //             </div>
-        //             <div class="card-body">
-        //                 <h5 class="card-title">${product.name}</h5>
-        //                 <p class="card-text">${product.description}</p>
-        //                 <p class="card-price"> ${priceTranslate} € </p>
-        //                 <select id="monselect">
-        //                     <option value="valeur1">Valeur 1</option>
-        //                     <option value="valeur2" selected>Valeur 2</option>
-        //                     <option value="valeur3">Valeur 3</option>
-        //                 </select>
-        //                 <button class="add-to-basket btn btn-primary">Ajouter au panier</button>
-        //             </div>
-        //         </div>
-        //     </article>
-        // `
-        // containerProducts.innerHTML = results;
-
-                                  // autre manière de construire la page
 
     console.log("plop1");
     const template = document.querySelector('#product')
@@ -74,16 +45,14 @@ fetch(APIURL)
                     indexProduct = index;
                     return itemAlreadyInBasket.item._id === newTeddy._id && itemAlreadyInBasket.color === colorSelected;
                 });
-                console.log("plop", productAlreadyExistInBasket, indexProduct);
+                console.log(productAlreadyExistInBasket, indexProduct);
                     //   si le produit existe déja : ajout de 1 à quantity
                 if (productAlreadyExistInBasket.length > 0)
                 // if (basket.object = newTeddy) ne marche pas
                 {
                     basket[indexProduct].quantity++;
-                    console.log("plop1");
                     //   sinon : création d'un nouvel objet contenant le produit et la quantité puis push dans le panier
                 } else {
-                        // product.color = colorSelected;
                         basket.push({item: product, color: colorSelected, quantity: 1});
                         console.log("plop2");
                 }
