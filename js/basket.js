@@ -1,13 +1,15 @@
 
 
-const  containerBasket = document.querySelector('#main');
+
+
+    // Construction du panier en js en important les templates HTML
+    const buildDomBasket  = () => {
+        const  containerBasket = document.querySelector('#main');
 const  basketDiv = document.querySelector('#basketDiv');
 const  basketEmpty = document.querySelector('#basketEmpty');
 const cloneHead = document.importNode(templatetHead.content, true);
 const cloneTbody = cloneHead.querySelector('.tBody')
 let indexBasket = 0;
-
-    // Construction du panier en js en important les templates HTML
 if (basket.length > 0){
     basketDiv.removeChild(basketEmpty);
     basket.forEach((element, index) =>
@@ -56,6 +58,9 @@ if (basket.length > 0){
         })
         totalPrice()
 }
+}
+
+buildDomBasket()
 
     // Case du prix total sous le panier
 let caseTotal = document.querySelector('#total')

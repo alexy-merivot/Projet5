@@ -1,15 +1,11 @@
                 // récupération de l'id du produit pour rediriger vers la bonne page
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const id = urlParams.get('id');
+
+
 
                         // Requète API
 
-const productSell = 'teddies/' + id ; //Au choix entre : "cameras" - "furniture" - "teddies"
-const APIURL = 'http://localhost:3000/api/' + productSell + '/';
-
 const containerProducts = document.querySelector('#main');
-fetch(APIURL)
+fetch(APIURlWithId )
 .then(response => response.json())
 .then(product =>{
 
@@ -31,35 +27,35 @@ fetch(APIURL)
         containerProducts.appendChild(clone);
         containerProducts.removeChild(error)
 
-
-        // let colorSelected = opt;
-
         function addTeddies(){
             document.querySelectorAll('.add-to-basket')[0].addEventListener('click', (e) => {
                 let colorSelected = document.getElementById("monSelect");
                 colorSelected = colorSelected.value;
-                                            // filtrage du panier grace a la propriété filter
+                        // filtrage du panier grace a la propriété filter
                 let indexProduct = 0;
                 let productAlreadyExistInBasket = basket.filter((itemAlreadyInBasket,index) =>{
                     console.log(itemAlreadyInBasket, newTeddy, index)
                     indexProduct = index;
                     return itemAlreadyInBasket.item._id === newTeddy._id && itemAlreadyInBasket.color === colorSelected;
                 });
-                console.log(productAlreadyExistInBasket, indexProduct);
-                    //   si le produit existe déja : ajout de 1 à quantity
+                console.log("plop", productAlreadyExistInBasket, indexProduct);
+                        //   si le produit existe déja : ajout de 1 à quantity
                 if (productAlreadyExistInBasket.length > 0)
-                // if (basket.object = newTeddy) ne marche pas
+                        // if (basket.object = newTeddy) ne marche pas
                 {
                     basket[indexProduct].quantity++;
-                    //   sinon : création d'un nouvel objet contenant le produit et la quantité puis push dans le panier
+                    console.log("plop1");
+                        //   sinon : création d'un nouvel objet contenant le produit et la quantité puis push dans le panier
                 } else {
-                        basket.push({item: product, color: colorSelected, quantity: 1});
+                        // product.color = colorSelected;
+                    basket.push({item: product, color: colorSelected, quantity: 1});
+                    console.log("plop2");
                 }
                 localStorage.setItem('basket', JSON.stringify(basket));
-            window.alert("Vous avez bien ajouté le produit au panier");
-            quantityBasketTotal()
+                window.alert("Vous avez bien ajouté le produit au panier");
 
-        })};
+            })
+        };
 
 
         let newTeddy = product;
