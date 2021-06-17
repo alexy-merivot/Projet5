@@ -1,30 +1,26 @@
-
-
-
-
     // Construction du panier en js en important les templates HTML
-    const buildDomBasket  = () => {
-        const  containerBasket = document.querySelector('#main');
-const  basketDiv = document.querySelector('#basketDiv');
-const  basketEmpty = document.querySelector('#basketEmpty');
-const cloneHead = document.importNode(templatetHead.content, true);
-const cloneTbody = cloneHead.querySelector('.tBody')
-let indexBasket = 0;
-if (basket.length > 0){
-    basketDiv.removeChild(basketEmpty);
-    basket.forEach((element, index) =>
-        {
-            const cloneItems = document.importNode(templatetRows.content, true);
-            const cloneItemRow = cloneItems.querySelector('.itemRow')
-            const priceTranslate = element.item.price / 100;
-            cloneItems.querySelector('.imageBasket').src = element.item.imageUrl;
-            cloneItems.querySelector('.productColorBasket').textContent = element.color;
-            cloneItems.querySelector('.productNameBasket').textContent = element.item.name;
-            cloneItems.querySelector('.productPriceBasket').textContent = priceTranslate + ' €';
-            cloneItems.querySelector('.productQuantityBasket').textContent = element.quantity;
-            cloneItems.querySelector('.productQuantityBasket').id = index;
-            cloneItems.querySelector('.itemRow').id = "id" + index;
-    // Boutons plus
+
+const buildDomBasket  = () => {
+    const  basketDiv = document.querySelector('#basketDiv');
+    const  basketEmpty = document.querySelector('#basketEmpty');
+    const cloneHead = document.importNode(templatetHead.content, true);
+    const cloneTbody = cloneHead.querySelector('.tBody')
+    if (basket.length > 0){
+        basketDiv.removeChild(basketEmpty);
+        basket.forEach((element, index) =>
+            {
+                const cloneItems = document.importNode(templatetRows.content, true);
+                const cloneItemRow = cloneItems.querySelector('.itemRow')
+                const priceTranslate = element.item.price / 100;
+                cloneItems.querySelector('.imageBasket').src = element.item.imageUrl;
+                cloneItems.querySelector('.productColorBasket').textContent = element.color;
+                cloneItems.querySelector('.productNameBasket').textContent = element.item.name;
+                cloneItems.querySelector('.productPriceBasket').textContent = priceTranslate + ' €';
+                cloneItems.querySelector('.productQuantityBasket').textContent = element.quantity;
+                cloneItems.querySelector('.productQuantityBasket').id = index;
+                cloneItems.querySelector('.itemRow').id = "id" + index;
+        // Boutons plus
+        const buttonMore = () => {
             cloneItems.querySelector('.btnMore').addEventListener('click', (e) => {
                 basket[index].quantity++;
                 const labelCount = document.getElementById(index);
@@ -33,7 +29,10 @@ if (basket.length > 0){
                 totalPrice()
                 quantityBasketTotal()
             })
-    // Boutons moins
+        }
+        buttonMore()
+        // Boutons moins
+        const buttonLess = () => {
             cloneItems.querySelector('.btnLess').addEventListener('click', (e) => {
                 basket[index].quantity--;
                 const labelCount = document.getElementById(index);
@@ -52,60 +51,56 @@ if (basket.length > 0){
                 totalPrice()
                 quantityBasketTotal()
             })
-            cloneHead.appendChild(cloneItems);
-            basketDiv.appendChild(cloneHead);
-            cloneTbody.appendChild(cloneItemRow)
-        })
-        totalPrice()
-}
+        }
+        buttonLess()
+                cloneHead.appendChild(cloneItems);
+                basketDiv.appendChild(cloneHead);
+                cloneTbody.appendChild(cloneItemRow)
+            })
+            totalPrice()
+    }
 }
 
 buildDomBasket()
 
-    // Case du prix total sous le panier
-let caseTotal = document.querySelector('#total')
-
-function totalPrice() {
-    let caseTotal = document.querySelector('#total');
-    const cloneTotalPrice = document.importNode(templateTotal.content, true);
-if (!caseTotal) {
-    basketDiv.appendChild(cloneTotalPrice);
-    caseTotal = document.querySelector('#total');
-}
-let price = 0;
-basket.forEach(product => {
-    price += product.item.price * product.quantity;
-})
-caseTotal.textContent = `${price / 100} €`
-}
-
-const containerForm = document.querySelector('#containerForm')
-const cloneForm = document.importNode(templateForm.content, true);
-    // Importation du formulaire si le panier n'est pas vide
+// Importation du formulaire si le panier n'est pas vide
     // et récupération des input du formulaire
-if (basket.length > 0)
-{
+
+const buildDomForm  = () =>  {
+    const containerForm = document.querySelector('#containerForm')
+    const cloneForm = document.importNode(templateForm.content, true);
     containerForm.appendChild(cloneForm);
-    const form = document.querySelector('#form')
-    form.addEventListener('submit', (e) =>
-    {
-        e.preventDefault();
-        let objProducts = []
-        basket.forEach((element, index) => {
-            objProducts.push(basket[index].item._id)
+
+    const catchDataFromForm = () => {
+        form.addEventListener('submit', (e) =>
+        {
+            e.preventDefault();
+            let objProducts = []
+            basket.forEach((element, index) => {
+                objProducts.push(basket[index].item._id)
+            })
+
+            let objContact = {};
+            const elements = form.elements;
+            for( let i = 0; i < elements.length-1; i++) {
+                const item = elements.item(i);
+                objContact[item.name] = elements.item(i).value;
+            }
+            send(objContact, objProducts)
         })
 
-        let objContact = {};
-        const elements = form.elements;
-        for( let i = 0; i < elements.length-1; i++) {
-            const item = elements.item(i);
-            objContact[item.name] = elements.item(i).value;
-        }
-        send(objContact, objProducts)
-    })
+    }
+    catchDataFromForm()
+}
+
+if (basket.length > 0)
+{
+    buildDomForm()
+
 }
 
     // fonction reqête post et envoi des données a l'api puis récupération de l'orderID
+
 function send(contacts, prod) {
     let objToSend = {
         contact: contacts,
@@ -113,7 +108,8 @@ function send(contacts, prod) {
     }
     localStorage.clear()
     console.log(JSON.stringify(objToSend))
-    fetch("http://localhost:3000/api/teddies/order", {
+
+    fetch(APIURLOrder, {
       method: "POST",
       headers: {
         'Accept': 'application/json',
