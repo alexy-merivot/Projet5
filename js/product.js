@@ -49,9 +49,9 @@ fetch(APIURlWithId)
 // product.color = colorSelected;
                 basket.push({item: product, color: colorSelected, quantity: 1});
             }
-            localStorage.setItem('basket', JSON.stringify(basket));
+            updateToBasket("basket",basket)
             window.alert("Vous avez bien ajouté le produit au panier");
-
+            quantityBasketTotal()
         })
     };
 

@@ -1,4 +1,4 @@
-    // Création du panier dans le localStorage
+// Création du panier dans le localStorage
 let basket = JSON.parse(localStorage.getItem('basket'));
 console.log("création du panier");
 if (basket === null)
@@ -6,7 +6,7 @@ if (basket === null)
 basket = [];
 }
 
-    // Fonction pour afficher le nombre d'article dans le panier a coté de l'onglet panier
+// Fonction pour afficher le nombre d'article dans le panier a coté de l'onglet panier
 const iconQuantityInBasket = document.querySelector('.btnBasket')
 function quantityBasketTotal()
 {

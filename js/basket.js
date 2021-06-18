@@ -25,7 +25,7 @@ const buildDomBasket  = () => {
                 basket[index].quantity++;
                 const labelCount = document.getElementById(index);
                 labelCount.textContent = basket[index].quantity;
-                localStorage.setItem('basket', JSON.stringify(basket))
+                updateToBasket("basket",basket)
                 totalPrice()
                 quantityBasketTotal()
             })
@@ -37,7 +37,7 @@ const buildDomBasket  = () => {
                 basket[index].quantity--;
                 const labelCount = document.getElementById(index);
                 labelCount.textContent = basket[index].quantity;
-                localStorage.setItem('basket', JSON.stringify(basket))
+                updateToBasket("basket",basket)
                 if (basket[index].quantity === 0){
                     const itemRow = document.getElementById("id" + index);
                     if (itemRow.parentNode) {
@@ -46,7 +46,7 @@ const buildDomBasket  = () => {
                         itemRow.parentNode.removeChild(itemRow);
                         }
                     basket.splice(index)
-                    localStorage.setItem('basket', JSON.stringify(basket))
+                    updateToBasket("basket",basket)
                 }
                 totalPrice()
                 quantityBasketTotal()
@@ -106,7 +106,7 @@ function send(contacts, prod) {
         contact: contacts,
         products: prod
     }
-    localStorage.clear()
+    clearBasket()
     console.log(JSON.stringify(objToSend))
 
     fetch(APIURLOrder, {
@@ -120,7 +120,7 @@ function send(contacts, prod) {
     .then(resp => resp.json())
     .then(data => {
         console.log(data.orderId)
-        localStorage.setItem("orderIdConfirmation",data.orderId)
+        updateToBasket("orderIdConfirmation",data.orderId)
         window.open('confirmation.html')
         window.location.replace('index.html')
     })
