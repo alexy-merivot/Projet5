@@ -1,6 +1,6 @@
     // Construction du panier en js en important les templates HTML
 
-const buildDomBasket  = () => {
+let buildDomBasket  = () => {
     const  basketDiv = document.querySelector('#basketDiv');
     const  basketEmpty = document.querySelector('#basketEmpty');
     const cloneHead = document.importNode(templatetHead.content, true);
@@ -20,7 +20,7 @@ const buildDomBasket  = () => {
                 cloneItems.querySelector('.productQuantityBasket').id = index;
                 cloneItems.querySelector('.itemRow').id = "id" + index;
         // Boutons plus
-        const buttonMore = () => {
+        let buttonMore = () => {
             cloneItems.querySelector('.btnMore').addEventListener('click', (e) => {
                 basket[index].quantity++;
                 const labelCount = document.getElementById(index);
@@ -32,7 +32,7 @@ const buildDomBasket  = () => {
         }
         buttonMore()
         // Boutons moins
-        const buttonLess = () => {
+        let buttonLess = () => {
             cloneItems.querySelector('.btnLess').addEventListener('click', (e) => {
                 basket[index].quantity--;
                 const labelCount = document.getElementById(index);
@@ -66,7 +66,7 @@ buildDomBasket()
 // Importation du formulaire si le panier n'est pas vide
     // et récupération des input du formulaire
 
-const buildDomForm  = () =>  {
+let buildDomForm  = () =>  {
     const containerForm = document.querySelector('#containerForm')
     const cloneForm = document.importNode(templateForm.content, true);
     containerForm.appendChild(cloneForm);
@@ -101,7 +101,7 @@ if (basket.length > 0)
 
     // fonction reqête post et envoi des données a l'api puis récupération de l'orderID
 
-function send(contacts, prod) {
+let send = (contacts, prod) => {
     let objToSend = {
         contact: contacts,
         products: prod

@@ -1,4 +1,5 @@
-const fetchProducts = () => {
+const fetchProducts = () =>
+{
   const containerProducts = document.querySelector('#main');
   get()
   .then(products =>
@@ -33,7 +34,7 @@ fetchProducts()
 // let imgTeddies;
 // let nameTeddies;
 // let priceTeddies;
-//     const template = document.querySelector('#product')
+//     const templateProductCard = document.querySelector('.templateProductCard')
 // const containerProducts = document.querySelector('#main');
 //   fetch('http://localhost:3000/api/teddies')
 //   .then(res => res.json())

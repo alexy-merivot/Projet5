@@ -26,12 +26,13 @@ fetch(APIURlWithId)
     containerProducts.appendChild(clone);
     containerProducts.removeChild(error)
 
-    function addTeddies(){
-        document.querySelectorAll('.add-to-basket')[0].addEventListener('click', (e) => 
+    function addTeddies()
+    {
+        document.querySelectorAll('.add-to-basket')[0].addEventListener('click', (e) =>
         {
             let colorSelected = document.getElementById("monSelect");
             colorSelected = colorSelected.value;
-// filtrage du panier grace a la propriété filter
+            // filtrage du panier grace a la propriété filter
             let indexProduct = 0;
             let productAlreadyExistInBasket = basket.filter((itemAlreadyInBasket,index) =>
             {
@@ -39,14 +40,14 @@ fetch(APIURlWithId)
                 indexProduct = index;
                 return itemAlreadyInBasket.item._id === newTeddy._id && itemAlreadyInBasket.color === colorSelected;
             });
-//   si le produit existe déja : ajout de 1 à quantity
+            //   si le produit existe déja : ajout de 1 à quantity
             if (productAlreadyExistInBasket.length > 0)
             {
                 basket[indexProduct].quantity++;
-//   sinon : création d'un nouvel objet contenant le produit et la quantité puis push dans le panier
+            //   sinon : création d'un nouvel objet contenant le produit et la quantité puis push dans le panier
             } else
             {
-// product.color = colorSelected;
+            // product.color = colorSelected;
                 basket.push({item: product, color: colorSelected, quantity: 1});
             }
             updateToBasket("basket",basket)
