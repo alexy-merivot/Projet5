@@ -1,8 +1,8 @@
     // Construction du panier en js en important les templates HTML
 
 let buildDomBasket  = () => {
-    const  basketDiv = document.querySelector('#basketDiv');
-    const  basketEmpty = document.querySelector('#basketEmpty');
+    const basketDiv = document.querySelector('#basketDiv');
+    const basketEmpty = document.querySelector('#basketEmpty');
     const cloneHead = document.importNode(templatetHead.content, true);
     const cloneTbody = cloneHead.querySelector('.tBody')
     if (basket.length > 0){
@@ -86,9 +86,30 @@ let buildDomForm  = () =>  {
                 const item = elements.item(i);
                 objContact[item.name] = elements.item(i).value;
             }
-            send(objContact, objProducts)
+            let isFormDataValid = true
+            const errorList = document.createElement('ul');
+            console.warn(elements);
+            for (let i = 0; i < elements.length - 1; i++)
+            {
+                const item = elements.item(i);
+                if (item.checkValidity()) {
+                    objContact[item.name] = item.value;
+                } else {
+                    const liError = document.createElement('li');
+                    liError.innerText = `${item.name} : ${item.validationMessage}`;
+                    isFormDataValid = false;
+                    errorList.appendChild(liError);
+                }
+            }
+            if (isFormDataValid)
+            {
+                send(objContact, objProducts)
+            }
+            else
+            {
+                document.querySelector('#error').appendChild(errorList);
+            }
         })
-
     }
     catchDataFromForm()
 }
@@ -96,28 +117,19 @@ let buildDomForm  = () =>  {
 if (basket.length > 0)
 {
     buildDomForm()
-
 }
 
-    // fonction reqête post et envoi des données a l'api puis récupération de l'orderID
+    // fonction reqête post et envoi des données a l'API puis récupération de l'orderID
 
 let send = (contacts, prod) => {
+    console.log("toto")
     let objToSend = {
         contact: contacts,
         products: prod
     }
     clearBasket()
     console.log(JSON.stringify(objToSend))
-
-    fetch(APIURLOrder, {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(objToSend)
-    })
-    .then(resp => resp.json())
+    postToAPI(APIURLOrder, objToSend)
     .then(data => {
         console.log(data.orderId)
         updateToBasket("orderIdConfirmation",data.orderId)
@@ -126,37 +138,41 @@ let send = (contacts, prod) => {
     })
     .catch(err => alert(err));
 }
+console.log(basket)
 
 
 
 // containerForm.querySelector('.btn--form').addEventListener('click', (e) => {
-//     e.preventDefault();
-//     const elements = form.elements;
-//     const contactObject = {};
-//     const productsObject = basket.map(item => {
-//         return item.product._id;
-//     })
-//     let isFormDataValid = true
-//     const errorList = document.createElement('ul');
-//     console.warn(elements);
-//     for (let i = 0; i < elements.length - 1; i++) {
-//         const item = elements.item(i);
-//         if (item.checkValidity()) {
-//             contactObject[item.name] = item.value;
-//         } else {
-//             const liError = document.createElement('li');
-//             liError.innerText = `${item.name} : ${item.validationMessage}`;
-//             isFormDataValid = false;
-//             errorList.appendChild(liError);
-//         }
+// e.preventDefault();
+// const elements = form.elements;
+// const objContact = {};
+// const objProducts = basket.map(item => {
+//     return item.product._id;
+// })
+
+// let isFormDataValid = true
+// const errorList = document.createElement('ul');
+// console.warn(elements);
+// for (let i = 0; i < elements.length - 1; i++)
+// {
+//     const item = elements.item(i);
+//     if (item.checkValidity()) {
+//         objContact[item.name] = item.value;
+//     } else {
+//         const liError = document.createElement('li');
+//         liError.innerText = `${item.name} : ${item.validationMessage}`;
+//         isFormDataValid = false;
+//         errorList.appendChild(liError);
 //     }
-//     if (isFormDataValid) {
-//         const objectToSend = {
-//             contact: contactObject,
-//             products: productsObject
-//         }
-//         fetch('http://localhost:3000/api/cameras/order', {
-//             method: 'POST',
+// }
+
+// if (isFormDataValid) {
+//     const objToSend = {
+//         contact: objContact,
+//         products: objProducts
+//     }
+//     fetch('http://localhost:3000/api/cameras/order', {
+//         method: 'POST',
 //             body: JSON.stringify(objectToSend),
 //             headers: {
 //                 'Content-Type': 'application/json'

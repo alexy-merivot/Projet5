@@ -1,8 +1,7 @@
-             // Requète API
+             // Requète API et construction du DOM Product
 
 const containerProducts = document.querySelector('#main');
-fetch(APIURlWithId)
-.then(response => response.json())
+getFromAPI(APIURlWithId)
 .then(product =>
 {
     const template = document.querySelector('#product')
@@ -47,7 +46,6 @@ fetch(APIURlWithId)
             //   sinon : création d'un nouvel objet contenant le produit et la quantité puis push dans le panier
             } else
             {
-            // product.color = colorSelected;
                 basket.push({item: product, color: colorSelected, quantity: 1});
             }
             updateToBasket("basket",basket)
