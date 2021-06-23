@@ -14,7 +14,8 @@ getFromAPI(APIURlWithId)
     clone.querySelector('.card-price').textContent = priceTranslate + ' €';
     const buttonSelect =  () =>
     {
-        product.colors.forEach(opt => {
+        product.colors.forEach(opt =>
+        {
             const option = document.createElement('option');
             option.value = opt;
             option.textContent = opt;
@@ -57,4 +58,5 @@ getFromAPI(APIURlWithId)
 
     let newTeddy = product;
     addTeddies();
-});
+})
+.catch(err => alert(err));

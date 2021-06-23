@@ -15,13 +15,15 @@ const getFromAPI = (anAPIURL) =>
 
 const postToAPI = (anAPIURL, objToSend) =>
 {
-    return fetch(anAPIURL, {
+    return fetch(anAPIURL,
+    {
         method: "POST",
-        headers: {
+        headers:
+        {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(objToSend)
-      })
-      .then(resp => resp.json());
+    })
+    .then(resp => resp.json());
 }

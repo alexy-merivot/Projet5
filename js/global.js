@@ -26,12 +26,14 @@ function totalPrice()
 {
     let caseTotal = document.querySelector('#total');
     const cloneTotalPrice = document.importNode(templateTotal.content, true);
-    if (!caseTotal) {
+    if (!caseTotal)
+    {
         basketDiv.appendChild(cloneTotalPrice);
         caseTotal = document.querySelector('#total');
     }
     let price = 0;
-    basket.forEach(product => {
+    basket.forEach(product =>
+    {
         price += product.item.price * product.quantity;
     })
     caseTotal.textContent = `${price / 100} €`
